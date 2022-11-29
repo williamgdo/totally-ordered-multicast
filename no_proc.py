@@ -48,10 +48,12 @@ def listen (p_id, msg_list, clock):
             print("Mensagem: ", msg)
             msg_list.append(msg)
 
-            msg_list.sort(lambda x: (x[1], x[2]))
+            msg_list.sort(key = lambda x: (x[1], x[2]))
             
             time.sleep(3)
             print("Lista de msgs: ----->")
+            print(msg_list)
+            print("-------------------->")
             ack = ["ACK", clock[0], p_id, False]
             send(s_t, ack)
         else:
