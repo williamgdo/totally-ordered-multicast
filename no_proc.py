@@ -1,7 +1,10 @@
+# authors
+# Jose Gabriel de Oliveira Santana 620459
+# William Giacometti Dutra de Oliveira 743606
+
 import socket
 import sys
 import struct
-from _thread import *
 import threading
 import pickle
 import time
@@ -9,8 +12,6 @@ import time
 
 multicast_group = '225.0.0.1'    	# configura o ip hospedeiro para a conexao
 multicast_port = 2022           # porta de comunicacao (a mesma que a do servidor)
-
- 
 
 def create_multicast():
 
