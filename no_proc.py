@@ -8,6 +8,7 @@ import struct
 import threading
 import pickle
 import time
+import random
 
 
 multicast_group = '225.0.0.1'    	# configura o ip hospedeiro para a conexao
@@ -25,7 +26,7 @@ def create_multicast():
 
 
 def send(s_t, msg):
-    time.sleep(3)
+    time.sleep(random.randint(3, 10))
     s_t.sendto(pickle.dumps(msg), (multicast_group, multicast_port))
 
 def listen (p_id, msg_list, clock):
@@ -33,7 +34,9 @@ def listen (p_id, msg_list, clock):
     s_t = create_multicast()
 
     while True:
-        time.sleep(4)
+        
+        time.sleep(random.randint(3, 10))
+
         msg = pickle.loads(s_t.recv( 1024 ))
        
         if(msg[1] > clock[0]):
@@ -44,7 +47,11 @@ def listen (p_id, msg_list, clock):
         if(msg[3] == True):
             print("Mensagem: ", msg)
             msg_list.append(msg)
+
+            msg_list.sort(lambda x: (x[1], x[2]))
             
+            time.sleep(3)
+            print("Lista de msgs: ----->")
             ack = ["ACK", clock[0], p_id, False]
             send(s_t, ack)
         else:
